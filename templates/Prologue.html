@@ -3,20 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="static/Menu.css">
+    <link rel="stylesheet" href="static/PrologueCSS/Prologue.css">
     <title>ENG Project Game</title>
 </head>
 <body>
 
 
-    <div class="Menu">
+    
 
+        <h1>This is the Beginning</h1>
 
-    <h1>This is the Beginning</h1>
+        <div id="scroll-container">
+            <div id="scroll-text">
+                <p>This is your cinematic text. It can be as long as you want.</p>
+                <p>Feel free to add more paragraphs.</p>
+                <p>Customize the styling to match your design.</p>
+                
+            </div>
+            <button id="continue-button" onclick="revealContinue()">Continue</button>
+        </div>
 
         
 
-    </div>
+
+    
+
+    <script>
+        const scrollText = document.getElementById('scroll-text');
+        const continueButton = document.getElementById('continue-button');
+    
+        // Simulate cinematic scrolling effect
+        setTimeout(() => {
+            scrollText.style.opacity = '1';
+        }, 1000); // Adjust the delay as needed
+    
+        // Show continue button after text is fully scrolled
+        window.addEventListener('scroll', () => {
+            const scrolled = window.scrollY;
+            const windowHeight = window.innerHeight;
+            const documentHeight = document.documentElement.scrollHeight;
+    
+            if (scrolled + windowHeight >= documentHeight) {
+                continueButton.style.display = 'block';
+            }
+        });
+    
+        // Function to be called when the continue button is clicked
+        function revealContinue() {
+            alert('Continue button clicked!'); // Replace with your desired action
+        }
+    </script>
+
 
 </body>
 </html>
