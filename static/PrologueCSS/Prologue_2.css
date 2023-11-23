@@ -21,6 +21,7 @@ body {
 
 
 
+
 button {
     border: solid;
     border-radius: 4px;
@@ -31,6 +32,9 @@ button {
     font-family: Chiller;
     transition-duration: .4s;
     cursor: pointer;
+    margin-right: 1250px;
+    width: 150px;
+    height: 50px;
 }
 
 button:hover {
@@ -39,6 +43,25 @@ button:hover {
     color: rgb(80, 48, 16);
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
     
+}
+
+.Start {
+    height: 60px;
+    position: relative;
+    left: 40%;
+    width: 260px;
+    margin-bottom: 45px;
+}
+
+.Character_Name {
+
+    font-weight: bold;
+    font-size: 27px;
+
+}
+
+.Quit_Text {
+    padding: 10px;
 }
 
 
@@ -50,48 +73,45 @@ margin-top: 100px;
 }
 
 h1 {
-
+    margin-top: -70px;
     font-family: Chiller;
-    font-size: 80px;
+    font-size: 70px;
     color:rgb(80, 48, 16);
     font-weight: bold;
-    margin-bottom: 200px;
-    text-align: center;
-}
-
-
-
-#scroll-container {
-    position: absolute;
-    top: 45%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    max-width: 650px;
-    padding: 20px;
-    text-align: center;
-    background-color: rgb(193, 193, 193);
-    border-radius: 4px;
-}
-
-#scroll-text {
-    font-size: 21px;
-    line-height: 1.5;
-    opacity: 0;
-    transition: opacity 1s ease-in-out;
-}
-
-#continue-button {
+    margin-bottom: 40px;;
     
-    border: solid;
-    border-radius: 4px;
-    background-color: rgb(80, 48, 16);
-    color: rgb(255, 255, 255);
-    padding: 15px 40px;
-    font-size: 25px;
-    font-family: Chiller;
-    transition-duration: .4s;
-    cursor: pointer;
-    margin-top: 160px;
-    margin-left: 650px;
+    text-align: center;
+}
+
+
+
+
+.Choice_Box {
+    display: inline-block;
+    background-color: rgb(52, 52, 52);
+    width: 240px;
+    height: 210px;
+    padding: 25px;
+    margin-right: 20px;
+    margin-bottom: 90px;
+    border-radius: 5px;
+}
+
+.Character_Image {
+
+    width: 240px;
+    height: 230px;
+   
+}
+
+.Text_Box {
+
+    display: inline-block;
+    background-color: white;
+    padding: 10px;
+    border-radius: 5px;
+    position: relative;
+    top: -231px;
+    
 }
 

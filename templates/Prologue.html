@@ -11,47 +11,54 @@
 
     
 
-        <h1>This is the Beginning</h1>
+        <h1>Azubuike Tribe Falls Apart</h1>
 
         <div id="scroll-container">
             <div id="scroll-text">
-                <p>This is your cinematic text. It can be as long as you want.</p>
-                <p>Feel free to add more paragraphs.</p>
-                <p>Customize the styling to match your design.</p>
+                <p>Welcome to the Game: "Azubuike Tribe Falls Apart.<br>
+                    In this game you will play as a Leader called Azu.<br>
+                    Your goal in this game is to keep the Tribe from<br>
+                    falling apart. Eventually the Tribe will fall,<br>
+                    but the actions you choose will matter.<br>
+                    Have fun and enjoy!<br>
+                
+                </p>
                 
             </div>
-            <button id="continue-button" onclick="revealContinue()">Continue</button>
         </div>
-
+        <form action="{{ url_for('Prologue_2') }}" method="get">
+            <button id="continue-button">Continue</button>
+        </form>
+        
         
 
 
     
 
     <script>
-        const scrollText = document.getElementById('scroll-text');
-        const continueButton = document.getElementById('continue-button');
+        document.addEventListener('DOMContentLoaded', function () {
+            const scrollText = document.getElementById('scroll-text');
+            const continueButton = document.getElementById('continue-button');
+        
+            // Simulate cinematic scrolling effect
+            setTimeout(() => {
+                scrollText.style.opacity = '1';
+            }, 1000); // Adjust the delay as needed
+        
+            // Show continue button after text is fully scrolled
+            window.addEventListener('wheel', () => {
+                const scrolled = window.scrollY;
+                const windowHeight = window.innerHeight;
+                const documentHeight = document.documentElement.scrollHeight;
+        
+                if (scrolled + windowHeight >= documentHeight) {
+                    continueButton.style.display = 'block';
+                }
+            });
+        
+            // Function to be called when the continue button is clicked
     
-        // Simulate cinematic scrolling effect
-        setTimeout(() => {
-            scrollText.style.opacity = '1';
-        }, 1000); // Adjust the delay as needed
-    
-        // Show continue button after text is fully scrolled
-        window.addEventListener('scroll', () => {
-            const scrolled = window.scrollY;
-            const windowHeight = window.innerHeight;
-            const documentHeight = document.documentElement.scrollHeight;
-    
-            if (scrolled + windowHeight >= documentHeight) {
-                continueButton.style.display = 'block';
-            }
         });
-    
-        // Function to be called when the continue button is clicked
-        function revealContinue() {
-            alert('Continue button clicked!'); // Replace with your desired action
-        }
     </script>
 
 

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/CSSSection_1/Section_1.css">
+    <title>ENG Project Game</title>
+</head>
+<body>
+
+   
+
+    <div class="Menu">
+
+
+    <h1>Azubuike Tribe Falls Apart</h1>
+
+    <div class="Choice_Box">
+        
+        <img class="Character_Image" src="static/Used_Images/Chijioke_Character.png" alt="Description of the image">
+
+        <p class="Character_Name"> Chijioke <p>
+
+    </div>
+
+    <div class="Text_Box" id="textContainer">
+
+        <p class="Question" id="question">  </p>
+           
+    </div>
+
+    <div class="Choice_container" id="Choice_Container">
+        <button class="Choice_1" onclick="chooseOption(0)" id="choice0"></button>
+        <button class="Choice_2" onclick="chooseOption(1)" id="choice1"></button>
+    </div>
+    
+        
+    
+    
+
+    <form class= "Quit_Form" action="{{ url_for('home') }}" method="get">
+        <button class="Quit_Text" type="submit">Quit</button>
+    </form>
+
+    </div>
+
+
+
+    <script>
+
+        fetch('/get_random_question')
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        // Set the question
+        document.getElementById('question').innerText = data.question;
+
+        // Set the choices
+        document.getElementById('choice0').innerText = data.choices[0];
+        document.getElementById('choice1').innerText = data.choices[1];
+    })
+    .catch(error => {
+        console.error('Error fetching question:', error.message);
+    });
+
+// Show the game container
+document.getElementById('textContainer').style.display = 'inline-block';
+document.getElementById('Choice_Container').style.display = 'inline-block';
+
+    </script>
+    
+
+</body>
+</html>
