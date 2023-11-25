@@ -8,70 +8,132 @@
 </head>
 <body>
 
-   
+    <div id="health-bar">
+        Health: <span id="health">100</span>
+    </div>
 
     <div class="Menu">
-
-
-    <h1>Azubuike Tribe Falls Apart</h1>
-
-    <div class="Choice_Box">
-        
-        <img class="Character_Image" src="static/Used_Images/Chijioke_Character.png" alt="Description of the image">
-
-        <p class="Character_Name"> Chijioke <p>
-
+        <h1>Azubuike Tribe Falls Apart</h1>
+        <div class="Choice_Box">
+            <img class="Character_Image" src="static/Used_Images/Chijioke_Character.png" alt="Description of the image">
+            <p class="Character_Name"> Chijioke <p>
+        </div>
+        <div class="Text_Box" id="textContainer">
+            <p class="Question" id="question"> </p>
+        </div>
+        <div class="Choice_container" id="Choice_Container">
+            <button class="Choice_1" onclick="chooseOption('positive')" id="choice0"></button>
+            <button class="Choice_2" onclick="chooseOption('negative')" id="choice1"></button>
+        </div>
+        <form class="Quit_Form" action="{{ url_for('home') }}" method="get">
+            <button class="Quit_Text" type="submit">Quit</button>
+        </form>
     </div>
 
-    <div class="Text_Box" id="textContainer">
-
-        <p class="Question" id="question"> </p>
-        
-    </div>
-
-    <div class="Choice_container" id="Choice_Container">
-        <button class="Choice_1" onclick="chooseOption(0)" id="choice0"></button>
-        <button class="Choice_2" onclick="chooseOption(1)" id="choice1"></button>
-    </div>
-    
-        
-    
-    
-
-    <form class= "Quit_Form" action="{{ url_for('home') }}" method="get">
-        <button class="Quit_Text" type="submit">Quit</button>
-    </form>
-
-    </div>
 
 
     <script>
-    fetch('/get_random_game_data')
-    .then(response => {
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.json();
-    })
-    .then(data => {
-        // Set the character image
-        document.querySelector('.Character_Image').src = data.character.image;
-
-        // Set the character name
-        document.querySelector('.Character_Name').innerText = data.character.name;
-
-        // Set the question
-        document.getElementById('question').innerText = data.question;
-
-        // Set the choices
-        document.getElementById('choice0').innerText = data.choices[0];
-        document.getElementById('choice1').innerText = data.choices[1];
-    })
-    .catch(error => {
-        console.error('Error fetching game data:', error.message);
-    });
+        var characters_data = {
+            'Chijioke': {
+                'image': 'static/Used_Images/Chijioke_Character.png',
+                'name': 'Chijioke (Warrior)',
+                'questions': [
+                    'Azu! Reports have come in that a rival village is planning a surprise attack. How should we prepare our defense?', 
+                    'The neighboring village challenges the prowess of our warriors in a martial arts competition. How do we respond to uphold our village\'s honor?', 
+                    'The village is facing internal strife, and some warriors are questioning your leadership. How will you address the dissent among the ranks?',
+                    'A sacred relic, crucial to our warriors\' spiritual strength, has been stolen. How do we retrieve it and restore the morale of our warriors?',
+                    'The training of young warriors is falling behind schedule, affecting our overall readiness for potential conflicts. How should we intensify the training regimen?',
+                    'Elder Azu, a woman in our tribe has dared to now acknowledge me and show me respect as the great warrior of our tribe! We should get rid of her and give her belongings to the rest of the village!',
+                ],
+                'choices': [
+                    ['Send emissaries to the rival village, expressing a desire for peaceful resolution.', 'Mobilize our warriors for a preemptive strike to discourage the attack.'],
+                    ['Politely decline and focus on maintaining peaceful relations between the villages.', 'Select our best warriors for a fierce competition to assert our dominance.'],
+                    ['Call a council of respected elders and warriors to address grievances and seek a diplomatic resolution.', 'Confront the dissenting warriors directly and assert your authority through a traditional display of strength.'],
+                    ['Convene a gathering of village leaders to discuss negotiations for the safe return of the sacred item.', 'Launch a covert mission to infiltrate the rival village and recover the stolen relic.'],
+                    ['Seek guidance from seasoned warriors and introduce innovative training methods to keep the young warriors engaged.', 'Implement a strict and rigorous training routine to instill discipline and resilience.'],
+                    ['Tell Chijioke to put aside your pride and leave the woman be.', 'Give Chijioke the go-ahead to follow through with his plans.'],
+                ]
+            },
+            // Add more characters as needed...
+        };
+    </script>
+        
+    <!-- Second script block with game logic -->
+    <script>
+        // Your existing JavaScript code
+        var health = 100;
+        var currentCharacter = 'Chijioke';
+        var currentIndex = 0;
     
-</script>
+        function updateHealth() {
+            document.getElementById('health').innerText = health;
+    
+            if (health <= 0) {
+                alert('Game Over!');
+                window.location.href = 'menu.html';
+            } else {
+                // Load a new set of questions and choices for the current character
+                loadNewQuestionSet();
+            }
+        }
+    
+        function loadNewQuestionSet() {
+            var characterData = characters_data[currentCharacter];
+        
+            // Debugging statement
+            console.log('currentCharacter:', currentCharacter, 'characterData:', characterData);
+        
+            if (!characterData) {
+                console.error('Character data is undefined or does not exist.');
+                return;
+            }
+        
+            if (currentIndex < characterData.questions.length) {
+                var currentQuestionSet = {
+                    question: characterData.questions[currentIndex],
+                    choices: characterData.choices[currentIndex]
+                };
+        
+                if (!currentQuestionSet) {
+                    console.error('Current question set is undefined or does not exist.');
+                    return;
+                }
+        
+                document.getElementById('question').innerHTML = currentQuestionSet.question;
+                document.getElementById('choice0').innerText = currentQuestionSet.choices[0];
+                document.getElementById('choice1').innerText = currentQuestionSet.choices[1];
+        
+                currentIndex++;
+            } else {
+                alert('Congratulations! You have completed the game.');
+                window.location.href = "/";
+            }
+        }
 
+    
+        function handleChoice(choiceType) {
+            if (choiceType === 'positive') {
+                health += 10;
+            } else if (choiceType === 'negative') {
+                health -= 20;
+            }
+    
+            health = Math.max(0, health);
+    
+            // Update the health bar
+            updateHealth();
+        }
+    
+        // Initial load of the first question set
+        loadNewQuestionSet();
+    </script>
+
+    <script>
+        function chooseOption(choiceType) {
+            // Handle the user's choice here
+            handleChoice(choiceType);
+        }
+    </script>
+    
 </body>
 </html>
