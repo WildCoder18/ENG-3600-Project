@@ -25,8 +25,8 @@
 
     <div class="Text_Box" id="textContainer">
 
-        <p class="Question" id="question">  </p>
-           
+        <p class="Question" id="question"> </p>
+        
     </div>
 
     <div class="Choice_container" id="Choice_Container">
@@ -45,10 +45,8 @@
     </div>
 
 
-
     <script>
-
-        fetch('/get_random_question')
+    fetch('/get_random_game_data')
     .then(response => {
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
@@ -56,6 +54,12 @@
         return response.json();
     })
     .then(data => {
+        // Set the character image
+        document.querySelector('.Character_Image').src = data.character.image;
+
+        // Set the character name
+        document.querySelector('.Character_Name').innerText = data.character.name;
+
         // Set the question
         document.getElementById('question').innerText = data.question;
 
@@ -64,15 +68,10 @@
         document.getElementById('choice1').innerText = data.choices[1];
     })
     .catch(error => {
-        console.error('Error fetching question:', error.message);
+        console.error('Error fetching game data:', error.message);
     });
-
-// Show the game container
-document.getElementById('textContainer').style.display = 'inline-block';
-document.getElementById('Choice_Container').style.display = 'inline-block';
-
-    </script>
     
+</script>
 
 </body>
 </html>
