@@ -4,7 +4,7 @@ import random
 
 characters_data = {
     'Chijioke': {
-        'image': 'static/Used_Images/Chijioke_Character.png',
+        'image': 'static/Used_Images/All_Characters/Chijioke_Character.png',
         'name': 'Chijioke (Warrior)',
         'questions': ['Azu! Reports have come in that a rival village is planning a surprise attack. How should we prepare our defense?', 
                       'The neighboring village challenges the prowess of our warriors in a martial arts competition. How do we respond to uphold our village''s honor?', 

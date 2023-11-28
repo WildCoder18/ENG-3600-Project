@@ -14,7 +14,8 @@ body {
     overflow: hidden;
     color: #fff;
     height: 100vh; /* Ensure full viewport height */
-        
+    max-height: 80vh; /* Adjust the value based on your needs, vh means viewport height */
+    overflow-y: auto;
     
 }
 
@@ -61,7 +62,7 @@ button:hover {
 
 .Quit_Text {
     padding: 10px;
-    margin-top: 10px;
+    margin-top: 15px;
    margin-left: 80px;
 }
 
@@ -149,4 +150,31 @@ h1 {
 .Quit_Form {
 
     text-align: left;
+}
+
+#Warrior-bar {
+    text-align: left;
+    margin-top: 10px;
+}
+
+.Warrior-container {
+    width: 200px; /* Set the width of the health bar */
+    height: 20px; /* Set the height of the health bar */
+    background-color: #ddd; /* Set the background color of the health bar container */
+    margin: 5px auto; /* Center the health bar horizontally */
+    text-align: left;
+    display: inline-flex;
+}
+
+#Warrior-progress {
+    text-align: left;
+    height: 100%;
+    width: 100%;
+    background-color: rgb(255,187,51); /* Set the color of the health bar */
+}
+
+.Warrior_Icon {
+    width: 40px;
+    height: 40px;
+    
 }

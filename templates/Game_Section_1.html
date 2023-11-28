@@ -8,14 +8,19 @@
 </head>
 <body>
 
-    <div id="health-bar">
-        Health: <span id="health">100</span>
-    </div>
 
     <div class="Menu">
         <h1>Azubuike Tribe Falls Apart</h1>
+
+        <div id="Warrior-bar">
+            <img class="Warrior_Icon" src="static/Used_Images/Warrior_Icon.png" alt="Warrior Relation">
+            <div class="Warrior-container">
+                <div id="Warrior-progress"></div>
+            </div>
+        </div>
+
         <div class="Choice_Box">
-            <img class="Character_Image" src="static/Used_Images/Chijioke_Character.png" alt="Description of the image">
+            <img class="Character_Image" src="static/Used_Images/All_Characters/Chijioke_Character.png" alt="Description of the image">
             <p class="Character_Name"> Chijioke <p>
         </div>
         <div class="Text_Box" id="textContainer">
@@ -34,17 +39,18 @@
 
     <script>
         var characters_data = {
+
             'Chijioke': {
                 'image': 'static/Used_Images/Chijioke_Character.png',
                 'name': 'Chijioke (Warrior)',
                 'questions': [
-                    'Azu! Reports have come in that a rival village is planning a surprise attack. How should we prepare our defense?', 
-                    'The neighboring village challenges the prowess of our warriors in a martial arts competition. How do we respond to uphold our village\'s honor?', 
-                    'The village is facing internal strife, and some warriors are questioning your leadership. How will you address the dissent among the ranks?',
-                    'A sacred relic, crucial to our warriors\' spiritual strength, has been stolen. How do we retrieve it and restore the morale of our warriors?',
-                    'The training of young warriors is falling behind schedule, affecting our overall readiness for potential conflicts. How should we intensify the training regimen?',
-                    'Elder Azu, a woman in our tribe has dared to now acknowledge me and show me respect as the great warrior of our tribe! We should get rid of her and give her belongings to the rest of the village!',
-                ],
+                    'Azu! Reports have come in that a rival village is planning a surprise attack. How should we prepare our defense?',
+                'The neighboring village challenges the prowess of our warriors in a martial arts competition. How do we respond to uphold our village\'s honor?',
+                'The village is facing internal strife, and some warriors are questioning your leadership. How will you address the dissent among the ranks?',
+                'A sacred relic, crucial to our warriors\' spiritual strength, has been stolen. How do we retrieve it and restore the morale of our warriors?',
+                'The training of young warriors is falling behind schedule, affecting our overall readiness for potential conflicts. How should we intensify the training regimen?',
+                'Elder Azu, a woman in our tribe has dared to now acknowledge me and show me respect as the great warrior of our tribe! We should get rid of her and give her belongings to the rest of the village!',
+],
                 'choices': [
                     ['Send emissaries to the rival village, expressing a desire for peaceful resolution.', 'Mobilize our warriors for a preemptive strike to discourage the attack.'],
                     ['Politely decline and focus on maintaining peaceful relations between the villages.', 'Select our best warriors for a fierce competition to assert our dominance.'],
@@ -52,43 +58,46 @@
                     ['Convene a gathering of village leaders to discuss negotiations for the safe return of the sacred item.', 'Launch a covert mission to infiltrate the rival village and recover the stolen relic.'],
                     ['Seek guidance from seasoned warriors and introduce innovative training methods to keep the young warriors engaged.', 'Implement a strict and rigorous training routine to instill discipline and resilience.'],
                     ['Tell Chijioke to put aside your pride and leave the woman be.', 'Give Chijioke the go-ahead to follow through with his plans.'],
-                ]
-            },
-            // Add more characters as needed...
-        };
+        ]
+    },
+    // Add more characters as needed...
+};
     </script>
         
     <!-- Second script block with game logic -->
     <script>
         // Your existing JavaScript code
-        var health = 100;
-        var currentCharacter = 'Chijioke';
-        var currentIndex = 0;
+        var Warrior = 100;
+    var currentCharacter = 'Chijioke';
+    var currentIndex = 0;
+
+    function updateWarrior() {
+        var warriorProgressBar = document.getElementById('Warrior-progress');
     
-        function updateHealth() {
-            document.getElementById('health').innerText = health;
+        // Update the width of the progress bar based on the Warrior value
+        var progressWidth = (Warrior / 100) * 100; // Adjust the factor based on your design
+        warriorProgressBar.style.width = progressWidth + '%';
     
-            if (health <= 0) {
-                alert('Game Over!');
-                window.location.href = 'menu.html';
-            } else {
-                // Load a new set of questions and choices for the current character
-                loadNewQuestionSet();
-            }
+        if (Warrior <= 0) {
+            alert('Game Over!');
+            window.location.href = 'menu.html';
+        } else {
+            loadNewQuestionSet();
         }
-    
-        function loadNewQuestionSet() {
-            var characterData = characters_data[currentCharacter];
-        
-            // Debugging statement
+    }
+
+    function loadNewQuestionSet() {
+        var characterData = characters_data[currentCharacter];
+
+        // Debugging statement
             console.log('currentCharacter:', currentCharacter, 'characterData:', characterData);
         
             if (!characterData) {
-                console.error('Character data is undefined or does not exist.');
-                return;
-            }
-        
-            if (currentIndex < characterData.questions.length) {
+            console.error('Character data is undefined or does not exist.');
+                        return;
+        }
+
+        if (currentIndex < characterData.questions.length) {
                 var currentQuestionSet = {
                     question: characterData.questions[currentIndex],
                     choices: characterData.choices[currentIndex]
@@ -99,32 +108,33 @@
                     return;
                 }
         
-                document.getElementById('question').innerHTML = currentQuestionSet.question;
+        document.getElementById('question').innerHTML = currentQuestionSet.question;
                 document.getElementById('choice0').innerText = currentQuestionSet.choices[0];
-                document.getElementById('choice1').innerText = currentQuestionSet.choices[1];
+            document.getElementById('choice1').innerText = currentQuestionSet.choices[1];
         
                 currentIndex++;
-            } else {
-                alert('Congratulations! You have completed the game.');
-                window.location.href = "/";
+        } else {
+            alert('Congratulations! You have completed the game.');
+                
             }
         }
 
     
         function handleChoice(choiceType) {
             if (choiceType === 'positive') {
-                health += 10;
+                Warrior += 5;
             } else if (choiceType === 'negative') {
-                health -= 20;
+                Warrior -= 20;
+                }
+    
+                Warrior = Math.max(0, Warrior);
+                updateWarrior();
+                
             }
+        
     
-            health = Math.max(0, health);
-    
-            // Update the health bar
-            updateHealth();
-        }
-    
-        // Initial load of the first question set
+
+    // Initial load of the first question set
         loadNewQuestionSet();
     </script>
 
@@ -133,7 +143,7 @@
             // Handle the user's choice here
             handleChoice(choiceType);
         }
-    </script>
+</script>
     
 </body>
 </html>
